@@ -1,7 +1,9 @@
+#importing libraries
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D
 from keras.layers import MaxPooling2D,Dense,Flatten
 from keras.optimizers import SGD
+
 def define_model():
     model = Sequential()
     model.add(Conv2D(32, (3, 3), activation='relu', kernel_initializer='he_uniform', input_shape=(28, 28, 1)))
