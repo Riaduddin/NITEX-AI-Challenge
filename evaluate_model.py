@@ -1,3 +1,4 @@
+#importing the libraries
 import tensorflow as tf
 from tensorflow import keras
 import argparse
@@ -11,7 +12,7 @@ def read_file(folder_path):
     # List all CSV files in the folder
     csv_files = [f for f in os.listdir(folder_path) if f.endswith('.csv')]
     
-    # Load your pre-trained deep learning model (replace with your model loading code)
+    # Load my pre-trained deep learning model 
     model = keras.models.load_model('my_model.h5')
     
     # Iterate through the CSV files in the folder
@@ -19,36 +20,39 @@ def read_file(folder_path):
         # Read the CSV file
         file_path = os.path.join(folder_path, csv_file)
         df = pd.read_csv(file_path)
+
+        #target
         test_labels=df.iloc[:,0]
         df.drop('label',axis=1,inplace=True)
+
+        #preprocessing the data
         df=data_processing(df)
-        
-        # Perform any necessary data preprocessing here
         
         # Make predictions using the loaded model
         predictions = model.predict(df)
         
         # Process and save the predictions as needed
-        # For example, you can save them to another CSV file
         predicted_labels=np.argmax(predictions,axis=1)
         
         #Human in the loop
         expert_labels=np.array(test_labels)
 
         #Weighted to combine modeling
+        #50% of human expertise
+        #and 50% of the model 
         weight_model=0.5
         weight_expert=0.5
 
         final_predictions=(weight_model * predicted_labels) + (weight_expert*expert_labels)
         final_predictions=np.round(final_predictions)
+
         #without human expertise
-        #test_labels = test_labels.astype(int)
         combined_predictions = final_predictions.astype(int)    
         accuracy = accuracy_score(test_labels, predicted_labels)
         precision = precision_score(test_labels, predicted_labels, average='weighted')
         f1 = f1_score(test_labels, predicted_labels, average='weighted')
 
-        #with human epxertise
+        #with human expertise
         accuracy_human = accuracy_score(test_labels, combined_predictions)
         precision_human = precision_score(test_labels, combined_predictions, average='weighted')
         f1_human = f1_score(test_labels, combined_predictions, average='weighted')
