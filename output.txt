@@ -1,0 +1,31 @@
+file_name:fashion-mnist_test.csvwithout human expertise:
+Accuracy: 0.9161
+Precision: 0.9168628346473761
+F1-Score: 0.9158531825882011
+
+with human expertise:
+Accuracy: 0.9223
+Precision: 0.9284405871873119
+F1-Score: 0.9225032369105367
+
+Model Summary:
+Model: "sequential_1"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ conv2d_1 (Conv2D)           (None, 26, 26, 32)        320       
+                                                                 
+ max_pooling2d_1 (MaxPoolin  (None, 13, 13, 32)        0         
+ g2D)                                                            
+                                                                 
+ flatten_1 (Flatten)         (None, 5408)              0         
+                                                                 
+ dense_2 (Dense)             (None, 100)               540900    
+                                                                 
+ dense_3 (Dense)             (None, 10)                1010      
+                                                                 
+=================================================================
+Total params: 542230 (2.07 MB)
+Trainable params: 542230 (2.07 MB)
+Non-trainable params: 0 (0.00 Byte)
+_________________________________________________________________
